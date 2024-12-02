@@ -63,6 +63,16 @@ void initialize_board()
         board[item_y][item_x] = '*';
     }
 }
+void loadHighScore() {
+    FILE *file = fopen("highscore.txt", "r");
+    if (file != NULL) {
+        if (fscanf(file, "%49s %d", highscore_name, &highscore) != 2) {
+            strcpy(highscore_name, "None");
+            highscore = 0;
+        }
+        fclose(file);
+    } 
+}
 void saveHighScore(int score, const char *name) {
     loadHighScore();
     if (score > highscore) {
@@ -76,16 +86,7 @@ void saveHighScore(int score, const char *name) {
     }
 }
 
-void loadHighScore() {
-    FILE *file = fopen("highscore.txt", "r");
-    if (file != NULL) {
-        if (fscanf(file, "%49s %d", highscore_name, &highscore) != 2) {
-            strcpy(highscore_name, "None");
-            highscore = 0;
-        }
-        fclose(file);
-    } 
-}
+
 
 void displayWinner()
 {
